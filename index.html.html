@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mente Equilibrada Online</title>
+  <meta name="description" content="Programas, exercícios e acompanhamento para ansiedade, estresse e equilíbrio mental. Autoavaliação, exercícios guiados e monitoramento de progresso." />
+  <meta name="theme-color" content="#3b82f6">
+  <link rel="icon" href="data:," />
+  <style>
+    :root{
+      --bg:#f7f9fc; --card:#ffffff; --accent:#3b82f6; --muted:#64748b; --glass:rgba(255,255,255,0.6);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color-scheme: light;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#f7fbff,#f2f6fb);color:#0f172a;-webkit-font-smoothing:antialiased}
+    .container{max-width:1100px;margin:28px auto;padding:0 18px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border-radius:12px;background:var(--card);box-shadow:0 6px 22px rgba(10,20,40,0.06)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,#60a5fa,#3b82f6);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    nav a{margin-left:12px;color:var(--muted);text-decoration:none;font-weight:600}
+    nav a:hover{color:var(--accent)}
+    main{margin-top:18px}
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:18px;align-items:start}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(12,18,30,0.06)}
+    h1{margin:0 0 8px 0;font-size:22px}
+    p.lead{margin:0;color:var(--muted)}
+    .btn{background:var(--accent);color:white;border:0;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;color:var(--muted);border:1px solid #e6eefc}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input,select,button,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #eaeef7;font-size:15px}
+    .small{font-size:13px;color:var(--muted)}
+    .exercise{display:flex;flex-direction:column;gap:12px;align-items:center}
+    .breath-circle{width:180px;height:180px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(50,70,90,0.06);background:radial-gradient(circle at 30% 30%,rgba(59,130,246,0.12),transparent 30%);transition:all 1s ease}
+    footer{margin:28px 0;text-align:center;color:var(--muted);font-size:13px}
+    .tips{display:grid;gap:8px}
+    .progressbar{height:12px;background:#eef2ff;border-radius:999px;overflow:hidden}
+    .progressbar > i{display:block;height:100%;background:linear-gradient(90deg,#60a5fa,#3b82f6);width:0%}
+    .row{display:flex;gap:8px}
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:1fr}
+    }
+    /* subtle accessibility focus */
+    :focus{outline:3px solid rgba(59,130,246,0.18);outline-offset:3px}
+    .blog-list{display:grid;gap:10px}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:#f1f5f9;font-size:13px;color:var(--muted)}
+    .hidden{display:none}
+    .flex-between{display:flex;justify-content:space-between;align-items:center}
+  </style>
+</head>
+<body>
+  <div class="container" role="document">
+    <header aria-label="Topo do site">
+      <div class="brand">
+        <div class="logo">ME</div>
+        <div>
+          <div style="font-weight:700">Mente Equilibrada</div>
+          <div class="small">Online — Programas para ansiedade e estresse</div>
+        </div>
+      </div>
+
+      <nav aria-label="Navegação principal">
+        <a href="#programs">Programas</a>
+        <a href="#avaliacao">Autoavaliação</a>
+        <a href="#exercicios">Exercícios</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#contato" class="chip">Contato</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <div class="card" id="heroCard">
+            <h1 id="hero-title">Recupere o equilíbrio — comece hoje</h1>
+            <p class="lead">Programas guiados, exercícios práticos, acompanhamento do progresso e ferramentas para reduzir ansiedade, melhorar sono e foco.</p>
+            <div style="margin-top:14px" class="row">
+              <button class="btn" id="startProgramBtn">Começar avaliação</button>
+              <button class="btn ghost" id="breathQuickBtn">Respiração guiada</button>
+            </div>
+
+            <div style="margin-top:16px" class="grid-3" aria-hidden="false">
+              <div class="card" style="text-align:left">
+                <div class="small">Programa</div>
+                <div style="font-weight:700;margin-top:6px">8 semanas para ansiedade leve</div>
+                <div class="small" style="margin-top:8px">Sessões diárias curtas, estratégias CBT-lite.</div>
+              </div>
+              <div class="card">
+                <div class="small">Ferramenta</div>
+                <div style="font-weight:700;margin-top:6px">Exercícios guiados</div>
+                <div class="small" style="margin-top:8px">Respiração, meditação, grounding.</div>
+              </div>
+              <div class="card">
+                <div class="small">Apoio</div>
+                <div style="font-weight:700;margin-top:6px">Rastreador de humor</div>
+                <div class="small" style="margin-top:8px">Registre sentimento e veja progresso.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px" class="card" id="assessmentCard" aria-hidden="true">
+            <h2>Avaliação rápida (2 min)</h2>
+            <p class="small">Responda com honestidade para receber recomendações iniciais.</p>
+            <form id="quizForm" aria-label="Formulário de avaliação">
+              <label for="q1">1. Você tem se sentido nervoso, ansioso ou tenso na maior parte dos dias?</label>
+              <select id="q1" required>
+                <option value="">Escolha</option>
+                <option value="0">Nunca</option>
+                <option value="1">Raramente</option>
+                <option value="2">Frequentemente</option>
+                <option value="3">Quase sempre</option>
+              </select>
+
+              <label for="q2" style="margin-top:8px">2. Tem dificuldade para relaxar ou dormir por causa da mente acelerada?</label>
+              <select id="q2" required>
+                <option value="">Escolha</option>
+                <option value="0">Nunca</option>
+                <option value="1">Raramente</option>
+                <option value="2">Frequentemente</option>
+                <option value="3">Quase sempre</option>
+              </select>
+
+              <label for="q3" style="margin-top:8px">3. Preocupações atrapalham seu trabalho ou relacionamentos?</label>
+              <select id="q3" required>
+                <option value="">Escolha</option>
+                <option value="0">Nunca</option>
+                <option value="1">Raramente</option>
+                <option value="2">Frequentemente</option>
+                <option value="3">Quase sempre</option>
+              </select>
+
+              <div style="margin-top:12px" class="row">
+                <button class="btn" type="submit">Ver resultado</button>
+                <button class="btn ghost" type="button" id="saveProfileBtn">Salvar perfil</button>
+              </div>
+            </form>
+
+            <div id="quizResult" style="margin-top:12px" class="hidden card">
+              <strong>Resultado</strong>
+              <p id="resultText" class="small">—</p>
+            </div>
+          </div>
+
+          <div style="margin-top:14px" class="card" id="moodCard">
+            <div class="flex-between">
+              <div>
+                <h3 style="margin:0">Rastreador de humor</h3>
+                <div class="small">Registre como você está hoje.</div>
+              </div>
+              <div>
+                <div class="small">Progresso</div>
+                <div class="progressbar" style="width:160px"><i id="moodProgress"></i></div>
+              </div>
+            </div>
+
+            <div style="margin-top:10px" class="row">
+              <select id="moodSel" aria-label="Selecionar humor">
+                <option value="0">😞 Triste / Ansioso</option>
+                <option value="1">😐 Neutro</option>
+                <option value="2">🙂 Melhor</option>
+                <option value="3">😄 Ótimo</option>
+              </select>
+              <button class="btn" id="logMoodBtn">Registrar</button>
+            </div>
+
+            <div style="margin-top:10px" class="small">Últimos registros:</div>
+            <ul id="moodList" class="small"></ul>
+
+            <div style="margin-top:10px" class="row">
+              <button class="btn ghost" id="exportBtn">Exportar progresso</button>
+              <button class="btn ghost" id="importBtn">Importar progresso</button>
+            </div>
+            <input id="fileInput" type="file" accept="application/json" class="hidden" />
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <aside>
+          <div class="card">
+            <h3 style="margin:0">Exercício rápido</h3>
+            <div class="small">Respiração 4-4-4 (inspire, segure, expire)</div>
+            <div style="margin-top:12px" class="exercise">
+              <div class="breath-circle" id="breathCircle" aria-hidden="true">
+                <div id="breathLabel" style="font-weight:700">Pronto</div>
+              </div>
+              <div style="width:100%" class="small center">
+                <button class="btn" id="startBreathBtn">Iniciar 1 ciclo</button>
+                <button class="btn ghost" id="stopBreathBtn">Parar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h3 style="margin:0">Programas</h3>
+            <div style="margin-top:8px" class="small">
+              <ul>
+                <li><strong>8 semanas</strong> para ansiedade leve</li>
+                <li><strong>4 semanas</strong> para sono melhor</li>
+                <li><strong>Plano diário</strong> de autocuidado</li>
+              </ul>
+            </div>
+            <div style="margin-top:8px">
+              <button class="btn" id="openProgramsBtn">Ver programas</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:12px">
+            <h3 style="margin:0">Recursos</h3>
+            <div class="small" style="margin-top:8px">
+              Guias, artigos e exercícios em texto e áudio. Use a seção Recursos abaixo para ler ou ouvir.
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <!-- EXERCISES & RESOURCES -->
+      <section id="exercicios" style="margin-top:18px">
+        <div class="card">
+          <h2>Exercícios guiados</h2>
+          <div class="small">Selecione um exercício e use o áudio sintetizado caso não tenha áudios prontos.</div>
+
+          <div style="margin-top:12px" class="row">
+            <select id="exerciseSel" aria-label="Selecionar exercício">
+              <option value="breath">Respiração guiada (4-4-4)</option>
+              <option value="ground">Grounding 5-4-3-2-1</option>
+              <option value="med">Meditação curta 5 minutos</option>
+            </select>
+            <button class="btn" id="playExerciseBtn">Ouvir</button>
+            <button class="btn ghost" id="stopExerciseBtn">Parar</button>
+          </div>
+
+          <div style="margin-top:12px" class="small">Transcrição / instruções:</div>
+          <div id="exerciseText" class="card small" style="margin-top:8px">—</div>
+        </div>
+      </section>
+
+      <!-- RESOURCES -->
+      <section id="recursos" style="margin-top:18px">
+        <div class="card">
+          <h2>Recursos & artigos</h2>
+          <div class="blog-list" id="resourcesList" style="margin-top:8px">
+            <!-- placeholders -->
+            <article class="card" style="padding:12px">
+              <h4 style="margin:0">Como gerenciar ansiedade em 10 minutos</h4>
+              <div class="small">Técnicas práticas e exercícios simples.</div>
+            </article>
+            <article class="card" style="padding:12px">
+              <h4 style="margin:0">Melhore o sono: rotina noturna</h4>
+              <div class="small">Dicas e checklist para sono reparador.</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contato" style="margin-top:18px">
+        <div class="card">
+          <h2>Contato & Personalização</h2>
+          <p class="small">Quer uma versão com seu domínio, marca d'água ou quer vender o programa? Entre em contato.</p>
+          <form id="contactForm">
+            <label for="name">Nome</label>
+            <input id="name" placeholder="Seu nome" />
+            <label for="email" style="margin-top:8px">Email</label>
+            <input id="email" type="email" placeholder="seu@exemplo.com" />
+            <label for="msg" style="margin-top:8px">Mensagem</label>
+            <textarea id="msg" rows="4" placeholder="Como podemos ajudar?"></textarea>
+            <div style="margin-top:10px" class="row">
+              <button class="btn" type="submit">Enviar</button>
+              <button class="btn ghost" id="downloadSiteBtn" type="button">Baixar site (zip)</button>
+            </div>
+            <div class="small" style="margin-top:8px;color:var(--muted)">Formulário é placeholder — implemente backend ou use mailto/serviço de terceiros.</div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© Mente Equilibrada Online — ferramenta de suporte. Informação não substitui aconselhamento profissional.</div>
+    </footer>
+  </div>
+
+  <script>
+    // ====== Simple app state (localStorage) ======
+    const KEY = 'mente_equilibrada_v1';
+    const defaultState = {
+      profile: null,
+      moods: [], // {date:iso, mood:0..3}
+      quiz: null
+    };
+    function loadState(){ try{ const r = localStorage.getItem(KEY); return r? Object.assign({}, defaultState, JSON.parse(r)) : {...defaultState}; }catch(e){return {...defaultState}} }
+    function saveState(s){ s.updatedAt = new Date().toISOString(); localStorage.setItem(KEY, JSON.stringify(s)); }
+    let state = loadState();
+
+    // ====== Helpers ======
+    const $ = id => document.getElementById(id);
+    const fmtDate = d => new Date(d).toLocaleString();
+    const money = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+
+    // ====== Assessment (quiz) ======
+    $('quizForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const scores = [Number($('q1').value), Number($('q2').value), Number($('q3').value)];
+      const total = scores.reduce((a,b)=>a+b,0);
+      let text = '';
+      if(total <= 2) text = 'Sinais baixos de ansiedade. Mantenha hábitos de autocuidado.';
+      else if(total <=5) text = 'Sinais moderados — experimente um programa curto e exercícios diários.';
+      else text = 'Sinais significativos — considere procurar apoio profissional além das ferramentas online.';
+      $('resultText').textContent = text;
+      $('quizResult').classList.remove('hidden');
+      state.quiz = {scores, total, date: new Date().toISOString(), text};
+      saveState(state);
+    });
+
+    // save profile quick
+    $('saveProfileBtn').addEventListener('click', ()=>{
+      const p = prompt('Nome breve do perfil (ex: João)') || 'Usuário';
+      state.profile = {name: p, savedAt: new Date().toISOString()};
+      saveState(state);
+      alert('Perfil salvo localmente.');
+    });
+
+    // ====== Mood tracker ======
+    function renderMoodList(){
+      const ul = $('moodList'); ul.innerHTML = '';
+      state.moods.slice().reverse().slice(0,6).forEach(m=>{
+        const li = document.createElement('li');
+        li.textContent = `${new Date(m.date).toLocaleDateString()} — ${['Triste/Ansioso','Neutro','Melhor','Ótimo'][m.mood]}`;
+        ul.appendChild(li);
+      });
+      const score = state.moods.length ? Math.round((state.moods.reduce((a,b)=>a+b.mood,0)/state.moods.length)/3*100) : 0;
+      $('moodProgress').style.width = score + '%';
+    }
+    $('logMoodBtn').addEventListener('click', ()=>{
+      const m = Number($('moodSel').value);
+      state.moods.push({date:new Date().toISOString(), mood:m});
+      saveState(state);
+      renderMoodList();
+      alert('Humor registrado.');
+    });
+
+    // import/export
+    $('exportBtn').addEventListener('click', ()=>{
+      const blob = new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'mente_equilibrada_progresso.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+    $('importBtn').addEventListener('click', ()=> $('fileInput').click());
+    $('fileInput').addEventListener('change', (e)=>{
+      const f = e.target.files[0]; if(!f) return;
+      const r = new FileReader();
+      r.onload = ()=> {
+        try{
+          const data = JSON.parse(r.result);
+          if(!confirm('Importar e substituir o progresso atual?')) return;
+          state = Object.assign({...defaultState}, data);
+          saveState(state);
+          renderMoodList();
+          alert('Importado.');
+        }catch(err){ alert('Arquivo inválido'); }
+      };
+      r.readAsText(f);
+    });
+
+    // ====== Breathing exercise (visual + speech) ======
+    let breathTimer = null;
+    const breathCircle = $('breathCircle');
+    const breathLabel = $('breathLabel');
+
+    function setBreath(sizeLabel, scale){
+      breathLabel.textContent = sizeLabel;
+      breathCircle.style.transform = `scale(${scale})`;
+    }
+
+    function startBreathCycles(cycles=1){
+      if(breathTimer) return;
+      const steps = [
+        {label:'Inspire (4s)', scale:1.25, dur:4000},
+        {label:'Segure (4s)', scale:1.05, dur:4000},
+        {label:'Expire (4s)', scale:0.75, dur:4000}
+      ];
+      let cycle = 0, stepIdx = 0;
+      const speak = s => {
+        if('speechSynthesis' in window){
+          const u = new SpeechSynthesisUtterance(s);
+          u.lang = 'pt-BR';
+          window.speechSynthesis.speak(u);
+        }
+      };
+      setBreath('Preparar',1);
+      breathTimer = setInterval(()=>{
+        const st = steps[stepIdx];
+        setBreath(st.label, st.scale);
+        speak(st.label.replace(' (4s)',''));
+        stepIdx++;
+        if(stepIdx >= steps.length){
+          stepIdx = 0;
+          cycle++;
+          if(cycle >= cycles){ stopBreath(); }
+        }
+      }, 4000);
+    }
+    function stopBreath(){
+      if(breathTimer){ clearInterval(breathTimer); breathTimer = null; setBreath('Pronto',1); if('speechSynthesis' in window) window.speechSynthesis.cancel(); }
+    }
+    $('startBreathBtn').addEventListener('click', ()=> startBreathCycles(2));
+    $('stopBreathBtn').addEventListener('click', stopBreath);
+    $('breathQuickBtn').addEventListener('click', ()=> { window.scrollTo({top:0,behavior:'smooth'}); startBreathCycles(1); });
+
+    // ====== Guided exercises using SpeechSynthesis ======
+    const exercises = {
+      breath: {
+        text: "Vamos fazer uma respiração profunda: inspire contando até quatro, segure por quatro e expire contando até quatro. Repita cinco vezes com calma.",
+      },
+      ground: {
+        text: "Grounding: nomeie mentalmente cinco coisas que você vê, quatro que você consegue tocar, três que consegue ouvir, duas que consegue cheirar e uma que consegue saborear.",
+      },
+      med: {
+        text: "Meditação curta: sente-se confortavelmente, foque na respiração. Quando a mente divagar, traga a atenção de volta à respiração. Continue por cinco minutos.",
+      }
+    };
+    function playText(t){
+      if(!('speechSynthesis' in window)){ alert('Síntese de voz não suportada aqui.'); return; }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(t);
+      u.lang = 'pt-BR';
+      u.rate = 0.95;
+      window.speechSynthesis.speak(u);
+    }
+    $('playExerciseBtn').addEventListener('click', ()=>{
+      const key = $('exerciseSel').value;
+      $('exerciseText').textContent = exercises[key].text;
+      playText(exercises[key].text);
+    });
+    $('stopExerciseBtn').addEventListener('click', ()=> { if('speechSynthesis' in window) window.speechSynthesis.cancel(); });
+
+    // ====== Programs (placeholder modal behaviour) ======
+    $('openProgramsBtn').addEventListener('click', ()=> {
+      alert('Programas: versão demo. Para um site comercial completo, integrar backend, area de membros e pagamentos (Stripe/PayPal). Posso te ajudar a implementar isso depois.');
+    });
+
+    // ====== Contact form placeholder & download site ======
+    $('contactForm').addEventListener('submit', (e)=>{ e.preventDefault(); alert('Formulário é placeholder. Para receber por email, implemente backend ou use mailto/serviço externo.'); });
+    $('downloadSiteBtn').addEventListener('click', ()=> {
+      // create a zip-like single html download (we already are single file) -> offer to download current page HTML
+      const html = '<!doctype html>\\n' + document.documentElement.outerHTML;
+      const blob = new Blob([html],{type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'mente_equilibrada.html'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    // ====== Init render ======
+    (function init(){
+      renderMoodList();
+      // populate exercise text
+      $('exerciseText').textContent = exercises[$('exerciseSel').value].text;
+    })();
+
+    // update exercise text on change
+    $('exerciseSel').addEventListener('change', ()=> $('exerciseText').textContent = exercises[$('exerciseSel').value].text);
+
+    // autosave periodically
+    setInterval(()=> saveState(state), 1000*30);
+
+    // storage sync
+    window.addEventListener('storage', (e)=> { if(e.key===KEY){ state = loadState(); renderMoodList(); } });
+  </script>
+</body>
+</html>
